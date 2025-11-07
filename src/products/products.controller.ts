@@ -8,6 +8,7 @@ import {
     Delete,
     Put,
     ParseIntPipe,
+    ValidationPipe,
   } from '@nestjs/common';
   import { ProductsService } from './products.service';
   import { CreateProductDto } from './dto/create-product.dto';
@@ -19,7 +20,7 @@ import {
   
     // CREATE
     @Post()
-    create(@Body() createProductDto: CreateProductDto) {
+    create(@Body(new ValidationPipe({whitelist:true,forbidNonWhitelisted:true})) createProductDto: CreateProductDto) {
       return this.productsService.create(createProductDto);
     }
   
