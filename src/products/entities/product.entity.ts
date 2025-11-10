@@ -1,20 +1,19 @@
+// src/products/entities/product.entity.ts
+import { Entity, Column, OneToMany } from 'typeorm';
+import { BaseEntity } from '../../common/entities/base.entity';
+import { Review } from '../../reviews/entities/review.entity';
 
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
-
-@Entity()
-export class Product {
-  @PrimaryGeneratedColumn()
-  id: number;
-
+@Entity('products')
+export class Product extends BaseEntity {
   @Column()
   name: string;
 
-  @Column({ nullable: true })
+  @Column({ type: 'text', nullable: true })
   description: string;
 
-  @Column('decimal')
+  @Column({ type: 'decimal', precision: 10, scale: 2 })
   price: number;
 
-  @Column({ default: true })
-  isActive: boolean;
+  @OneToMany(() => Review, (review) => review.product)
+  reviews: Review[];
 }

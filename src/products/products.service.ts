@@ -22,19 +22,19 @@ export class ProductsService {
     return this.productsRepository.find();
   }
 
-  async findOne(id: number): Promise<Product> {
-    const product = await this.productsRepository.findOne({ where: { id } });
+  async findOne(id: string): Promise<Product> {
+    const product = await this.productsRepository.findOne({ where: { id :String(id)} });
     if (!product) throw new NotFoundException(`Product #${id} not found`);
     return product;
   }
 
-  async update(id: number, updateProductDto: UpdateProductDto): Promise<Product> {
+  async update(id: string, updateProductDto: UpdateProductDto): Promise<Product> {
     const product = await this.findOne(id);
     const updated = Object.assign(product, updateProductDto);
     return this.productsRepository.save(updated);
   }
 
-  async remove(id: number): Promise<void> {
+  async remove(id: string): Promise<void> {
     const product = await this.findOne(id);
     await this.productsRepository.remove(product);
   }

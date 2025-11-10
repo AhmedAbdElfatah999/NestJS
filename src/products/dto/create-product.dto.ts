@@ -4,8 +4,6 @@ import { IsNotEmpty, IsNumber, IsOptional, IsString, Length, Min, MinLength } fr
 export class CreateProductDto {
   @IsNotEmpty()
   @IsString()
-  @MinLength(5)
-  @Length(5,50)
   name: string;
 
   @IsOptional()
